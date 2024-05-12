@@ -68,11 +68,10 @@
 <h2 id="6-测试过程"><a href="#6-测试过程" class="headerlink" title="6.  测试过程"></a>6.  测试过程</h2><p>先在remix vm中进行测试。</p>
 <p>（secret的类型为uint256，实际前端会随机生成32byte作为secret，足够安全。为了测试方便使用较简单的secret）</p>
 <p>生成hash：</p>
-<p>​            <img src="/2024/05/09/%E5%89%AA%E5%88%80%E7%9F%B3%E5%A4%B4%E5%B8%83dapp%E5%BC%80%E5%8F%91/image-20240509163504467-1715243708776-1.png" class="" title="image-20240509163504467">                   </p>
+<p>​            <img src="/%E5%89%AA%E5%88%80%E7%9F%B3%E5%A4%B4%E5%B8%83dapp%E5%BC%80%E5%8F%91%5Cimage-20240509163504467-1715243708776-1.png" alt="image-20240509163504467">                   </p>
 <p>下注及执行后情况：</p>
 <p>​      </p>
-<img src="/2024/05/09/%E5%89%AA%E5%88%80%E7%9F%B3%E5%A4%B4%E5%B8%83dapp%E5%BC%80%E5%8F%91/image-20240509163530103.png" class="" title="image-20240509163530103">
-
+<p><img src="/%E5%89%AA%E5%88%80%E7%9F%B3%E5%A4%B4%E5%B8%83dapp%E5%BC%80%E5%8F%91%5Cimage-20240509163530103.png" alt="image-20240509163530103"></p>
 <img src="/2024/05/09/%E5%89%AA%E5%88%80%E7%9F%B3%E5%A4%B4%E5%B8%83dapp%E5%BC%80%E5%8F%91/image-20240509163620232.png" class="" title="image-20240509163620232">
 
 <img src="/2024/05/09/%E5%89%AA%E5%88%80%E7%9F%B3%E5%A4%B4%E5%B8%83dapp%E5%BC%80%E5%8F%91/image-20240509163631509.png" class="" title="image-20240509163631509">
@@ -198,7 +197,7 @@
 <p> Reinforcement learning has a wide range of applications, including robotics, game playing, autonomous driving, and recommendation systems. It has been used to develop agents that can play complex games like Go, at a superhuman level, navigate through complex environments, and optimize energy consumption in buildings.</p>
 <p> There are several challenges associated with reinforcement learning, including the exploration-exploitation trade-off and generalization. Researchers have developed various techniques to address these challenges, such as policy gradients, and deep reinforcement learning. They are all such powerful and creative solutions that I could never imagine.</p>
 <p>  Unfortunately, this article will not improve the solutions to the questions above. Neither did the article discover any valuable problems to be explored. As is said in the abstract part, the meaning of the article is just to help the people with really poor knowledge of reinforcement learning in addition to finishing the assignment and getting the credits</p>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-05-07T11:39:16.000Z" title="2024/5/7 19:39:16">2024-05-07</time>发表</span><span class="level-item"><time dateTime="2024-05-09T04:46:51.974Z" title="2024/5/9 12:46:51">2024-05-09</time>更新</span><span class="level-item">1 分钟读完 (大约155个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">WR740漏洞复现</a></p><div class="content"><h3 id="1-固件获取"><a href="#1-固件获取" class="headerlink" title="1.固件获取"></a>1.固件获取</h3><img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240507201809400.png" class="" title="image-20240507201809400">
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-05-07T11:39:16.000Z" title="2024/5/7 19:39:16">2024-05-07</time>发表</span><span class="level-item"><time dateTime="2024-05-12T04:51:41.192Z" title="2024/5/12 12:51:41">2024-05-12</time>更新</span><span class="level-item">2 分钟读完 (大约237个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">WR740漏洞复现</a></p><div class="content"><h3 id="1-固件获取"><a href="#1-固件获取" class="headerlink" title="1.固件获取"></a>1.固件获取</h3><img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240507201809400.png" class="" title="image-20240507201809400">
 
 <h3 id="2-binwalk解包"><a href="#2-binwalk解包" class="headerlink" title="2.binwalk解包"></a>2.binwalk解包</h3><h5 id="binwalk安装"><a href="#binwalk安装" class="headerlink" title="binwalk安装"></a>binwalk安装</h5><p>binwalk 安装</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/ReFirmLabs/binwalk.git</span><br><span class="line">$ <span class="built_in">cd</span> binwalk</span><br><span class="line">$ sudo python3 setup.py install</span><br></pre></td></tr></table></figure>
@@ -218,6 +217,17 @@
 <img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240507201846605.png" class="" title="image-20240507201846605">
 
 <h3 id="3-firmwalker扫描"><a href="#3-firmwalker扫描" class="headerlink" title="3.firmwalker扫描"></a>3.firmwalker扫描</h3><p>获取firmwalker：<code>git clone https://github.com/craigz28/firmwalker.git</code></p>
+<img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240512124453141.png" class="" title="image-20240512124453141">
+
+<p>路由器Web相关URL的格式为：&#x2F;web&#x2F;userRpm&#x2F;*</p>
+<img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240512124702425.png" class="" title="image-20240512124702425">
+
+<p>http服务器为httpd，且httpd中包含较多关键字符串，考虑对其进行分析</p>
+<img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240512124803655.png" class="" title="image-20240512124803655">
+
+<img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240512125003782.png" class="" title="image-20240512125003782">
+
+<img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240512125036615.png" class="" title="image-20240512125036615">
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-02-09T01:47:58.538Z" title="2024/2/9 09:47:58">2024-02-09</time>发表</span><span class="level-item"><time dateTime="2024-02-09T01:47:58.538Z" title="2024/2/9 09:47:58">2024-02-09</time>更新</span><span class="level-item">1 分钟读完 (大约123个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2024/02/09/hello-world/">Hello World</a></p><div class="content"><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
