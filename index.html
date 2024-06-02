@@ -204,7 +204,9 @@
 <p> Reinforcement learning has a wide range of applications, including robotics, game playing, autonomous driving, and recommendation systems. It has been used to develop agents that can play complex games like Go, at a superhuman level, navigate through complex environments, and optimize energy consumption in buildings.</p>
 <p> There are several challenges associated with reinforcement learning, including the exploration-exploitation trade-off and generalization. Researchers have developed various techniques to address these challenges, such as policy gradients, and deep reinforcement learning. They are all such powerful and creative solutions that I could never imagine.</p>
 <p>  Unfortunately, this article will not improve the solutions to the questions above. Neither did the article discover any valuable problems to be explored. As is said in the abstract part, the meaning of the article is just to help the people with really poor knowledge of reinforcement learning in addition to finishing the assignment and getting the credits</p>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-05-07T11:39:16.000Z" title="2024/5/7 19:39:16">2024-05-07</time>发表</span><span class="level-item"><time dateTime="2024-05-15T04:29:43.366Z" title="2024/5/15 12:29:43">2024-05-15</time>更新</span><span class="level-item">7 分钟读完 (大约1004个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">WR740漏洞复现</a></p><div class="content"><h3 id="1-固件获取"><a href="#1-固件获取" class="headerlink" title="1.固件获取"></a>1.固件获取</h3><img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240507201809400.png" class="" title="image-20240507201809400">
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-05-07T11:39:16.000Z" title="2024/5/7 19:39:16">2024-05-07</time>发表</span><span class="level-item"><time dateTime="2024-06-02T02:36:59.138Z" title="2024/6/2 10:36:59">2024-06-02</time>更新</span><span class="level-item">9 分钟读完 (大约1411个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">WR740漏洞复现</a></p><div class="content"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本项目旨在复现TP-Link WR740路由器固件中的漏洞。通过对固件进行解包、扫描和分析，最终实现漏洞的验证。整个过程涉及工具的安装与使用、代码的逆向分析以及模拟环境的搭建与测试。</p>
+<h3 id="0-问题分析"><a href="#0-问题分析" class="headerlink" title="0.问题分析"></a>0.问题分析</h3><p>TP-Link WR740路由器存在一个严重的安全漏洞，允许攻击者通过特定的HTTP请求执行任意命令。这个漏洞存在于httpd程序中，通过对usr和passwd参数的验证不足，攻击者可以利用默认凭证进行未授权访问并执行命令。</p>
+<h3 id="1-固件获取"><a href="#1-固件获取" class="headerlink" title="1.固件获取"></a>1.固件获取</h3><img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240507201809400.png" class="" title="image-20240507201809400">
 
 <h3 id="2-binwalk解包"><a href="#2-binwalk解包" class="headerlink" title="2.binwalk解包"></a>2.binwalk解包</h3><h5 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h5><img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240515122252043.png" class="" title="image-20240515122252043">
 
@@ -256,7 +258,8 @@
 
 <img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240512131249986.png" class="" title="image-20240512131249986">
 
-<p>通过write(pty,cmd,strlen(cmd))来模拟执行命令。伪终端(pseudo terminal，有时也被称为 pty)是指伪终端 master 和伪终端 slave 这一对字符设备。其中的 slave 对应 &#x2F;dev&#x2F;pts&#x2F; 目录下的一个文件，而 master 则在内存中标识为一个文件描述符(fd)。伪终端由终端模拟器提供，终端模拟器是一个运行在用户态的应用程序。可通过写pty文件执行指令。</p>
+<p>通过<code>write(pty,cmd,strlen(cmd))</code>来模拟执行命令。伪终端(pseudo terminal，有时也被称为 pty)是指伪终端 master 和伪终端 slave 这一对字符设备。其中的 slave 对应 <code>/dev/pts/ </code>目录下的一个文件，而 master 则在内存中标识为一个文件描述符(fd)。伪终端由终端模拟器提供，终端模拟器是一个运行在用户态的应用程序。可通过写pty文件执行指令。</p>
+<p>用IDA Pro对httpd程序进行反编译分析。搜索关键字符串如<code>passwd</code>，并分析相关函数，发现漏洞点在于对<code>usr</code>和<code>passwd</code>字段的验证不足，且可以通过<code>pty</code>伪终端执行命令。</p>
 <p>检查该函数调用情况，发现url绑定</p>
 <img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240512132246025.png" class="" title="image-20240512132246025">
 
@@ -275,6 +278,14 @@
 
 <p>访问前面发现的url，根据提示输入默认账号密码，发现可以执行命令</p>
 <img src="/2024/05/07/WR740%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/image-20240512170419376.png" class="" title="image-20240512170419376">
+
+<h3 id="6-结论"><a href="#6-结论" class="headerlink" title="6. 结论"></a>6. 结论</h3><p>通过对TP-Link WR740路由器固件的详细分析与模拟测试，成功复现了固件中的漏洞。本文展示了从固件获取、解包、扫描到漏洞分析和模拟验证的全过程，为进一步的安全研究提供了实践案例。</p>
+<h3 id="7-参考文献"><a href="#7-参考文献" class="headerlink" title="7. 参考文献"></a>7. 参考文献</h3><ul>
+<li>Binwalk GitHub Repository: <a target="_blank" rel="noopener" href="https://github.com/ReFirmLabs/binwalk">https://github.com/ReFirmLabs/binwalk</a></li>
+<li>Firmwalker GitHub Repository: <a target="_blank" rel="noopener" href="https://github.com/craigz28/firmwalker">https://github.com/craigz28/firmwalker</a></li>
+<li>FirmAE GitHub Repository: <a target="_blank" rel="noopener" href="https://github.com/pr0v3rbs/FirmAE">https://github.com/pr0v3rbs/FirmAE</a></li>
+<li>TP-Link WR740 后门漏洞复现（学习记录）:<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-277920.htm">TP-Link WR740 后门漏洞复现（学习记录）-智能设备-看雪-安全社区|安全招聘|kanxue.com</a></li>
+</ul>
 </div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-02-09T01:47:58.538Z" title="2024/2/9 09:47:58">2024-02-09</time>发表</span><span class="level-item"><time dateTime="2024-02-09T01:47:58.538Z" title="2024/2/9 09:47:58">2024-02-09</time>更新</span><span class="level-item">1 分钟读完 (大约123个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2024/02/09/hello-world/">Hello World</a></p><div class="content"><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
